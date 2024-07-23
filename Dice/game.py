@@ -6,6 +6,8 @@ amount = 0
 my_list = []
 rolled_number = 0
 multiplier = 9900
+chosen_number = int(input("Enter bet number you wish for it to roll higher than: "))
+bet_size = 0
 
 
 for i in range(1, 100):
@@ -14,9 +16,14 @@ for i in range(1, 100):
 
 
 def add_win_to_account():
-    if rolled_number == 2:
-        global amount
-        amount += 1
+    bet_size = float(input("Enetr bet size lot: "))
+    global amount
+    if amount == 0:
+        print("Deposit into account")
+    elif bet_size > amount:
+        print("Account size too small for bet")
+    elif rolled_number > chosen_number:
+        amount = bet_size * multiplier + amount
     return amount
 
 
@@ -27,6 +34,8 @@ def set_amount():
 
 if new_game:
     set_amount()
+
+
 
 print(rolled_number)
 new_balance = add_win_to_account()
