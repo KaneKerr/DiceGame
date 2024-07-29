@@ -1,3 +1,4 @@
+import os.path
 import random
 
 
@@ -9,13 +10,12 @@ multiplier = 0
 start_num = 0
 demultiplier = 0
 max_amount = 495
-
+file_path1 = "account_details.txt"
 start_again = (input("Type 'Yes/yes' if you want to start again: "))
 
 
 if start_again == "Yes" or start_again == "yes":
     new_game = True
-
 
 def get_valid_number():
     while True:
@@ -71,8 +71,26 @@ def set_amount():
             return amount
 
 
+
+def read_my_file():
+    global amount
+    if os.path.exists( file_path1):
+        with open(file_path1, "r") as file:
+            content1 = file.read().strip()
+            if content1:
+                amount = float(content1)
+                print("Your account balance is: " + str(amount))
+            else: print("File is empty")
+    else:
+        print("File does not exisit")
+
+
+
+
 if new_game:
     set_amount()
+else:
+    read_my_file()
 
 
 run_game_edit = add_multi()
@@ -84,7 +102,6 @@ print("the number rolled was: " + str(rolled_number))
 print("New balance is: " + str(new_balance))
 
 
-account_file = open("account_details.txt" , "a")
-account_file.write(str(amount))
 
-
+with open(file_path1, "w") as account_file1:
+    account_file1.write(str(amount))
